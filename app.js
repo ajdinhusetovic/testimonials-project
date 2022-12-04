@@ -1,6 +1,7 @@
 const review = document.querySelector('#customer-review');
 const img = document.querySelector('img');
 const customerName = document.querySelector('#customer-name');
+const leftButton = document.querySelector('#left');
 
 const customer = [
     {
@@ -33,4 +34,26 @@ const customer = [
         customerImg: '',
         customerReview: "Finally bought my dream car and I couldn't be happier about it. It's an BMW X3 2020!!!!"
     },
-]
+];
+
+
+// shuffle customer reviews
+const shuffleCustomers = () => {
+    for (let i = customer.length -1; i > 0; i--){
+        let randomPosition = Math.floor(Math.random() * (i + 1));
+        let temp = customer[i];
+        customer[i] = customer[randomPosition];
+        customer[randomPosition]= temp;
+    }
+    return customer;
+}
+
+
+// event listener to print the reviews
+leftButton.addEventListener('click', () => {
+    const shuffledCustomers = shuffleCustomers();
+    const randomCustomer = shuffledCustomers[Math.floor(Math.random()*shuffledCustomers.length)];
+    console.log(randomCustomer);
+    customerName.textContent = randomCustomer.customerName;
+    review.textContent = randomCustomer.customerReview;
+})
